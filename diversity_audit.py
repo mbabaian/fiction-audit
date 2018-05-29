@@ -7,6 +7,8 @@ Created on Thu Mar  1 14:15:56 2018
 
 # Import the pandas library
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Read in excel spreadsheet
 file = 'fic_collection.xls'
@@ -48,4 +50,21 @@ print("\nNumber of unique titles in collection: ", len(titles))
 
 #for k, v in zip(authors, titles):
 #    print("{1} by {0}".format(k,v))
-    
+
+# Create barchart to show number of items per status
+status = xl['status'].unique()
+
+lost = sum(xl['status']=="Lost")
+available = sum(xl['status']=="Available")
+cko = sum(xl['status']=="Checked Out")
+print(lost, available, cko)
+
+
+index = np.arange(len(status))
+values = [lost, available, cko]
+plt.bar(index, values)
+#plt.xlabel('Status', fontsize=8)
+#plt.ylabel('Value', fontsize=8)
+plt.xticks(index, status)
+plt.title('Number of Items per Status')
+plt.show()
